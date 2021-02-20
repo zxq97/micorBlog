@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/register" method="post">
+        {% csrf_token %}
+        <h3>注册</h3>
+        <label>用&nbsp;&nbsp;户&nbsp;&nbsp;名：</label>
+        <input type="text" name="username" required><br>
+        <label>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label>
+        <input type="password" name="password" id="pwd" required><br>
+        <label>确认密码：&nbsp;</label>
+        <input type="password" name="confirm" id="confirm" required><br>
+        <label>电&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;话：</label>
+        <input type="text" name="telephone" required><br>
+        <label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label>
+        <input type="text" name="email" required><br>
+        <input type="submit" value="立即注册">
+    </form>
+</body>
+</html>

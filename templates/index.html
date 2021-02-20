@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if request.session.user %}
+    欢迎 {{ request.session.user.username }}<br>
+    <a href="/logout">注销</a><br>
+{% else %}
+    <a href="/login">登录</a><br>
+    <a href="/register">注册</a><br>
+{% endif %}
+<a href="/home">个人主页</a><br>
+<a href="/edit">发微博</a><br>
+{{ errmsg }}
+
+<table cellpadding="10">
+    {% for item in article %}
+        <tr>
+            <td><a href="/home?id={{ item.uid }}">{{ item.username }}</a>&nbsp;&nbsp;
+                <a href="/blog?id={{ item.id }}">{{ item.title }}</a>&nbsp;&nbsp;
+                {{ item.create_time }}
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/blog?id={{ item.id }}">{{ item.content }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

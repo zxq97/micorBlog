@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/edit" method="post">
+    {% csrf_token %}
+    标题<input type="text" name="title"><br>
+    正文<input type="text" name="content" style="height: 100px;width: 200px"><br>
+    <input type="submit" value="发送">
+</form>
+</body>
+</html>

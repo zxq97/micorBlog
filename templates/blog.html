@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table cellpadding="10">
+    <tr>
+        <td><a href="/home?id={{ blog.uid }}">{{ blog.username }}</a>&nbsp;&nbsp;
+            {{ blog.title }}&nbsp;&nbsp;
+            {% if blog.uid != request.session.user.id  and not isFollow %}
+                <a href="/follow?uid={{ blog.uid }}">关注</a>
+            {% elif isFollow %}
+                <a href="/cancelFollow?id={{ blog.uid }}">取消关注</a>
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>浏览次数:&nbsp;{{ browseCnt }}</td>
+    </tr>
+    <tr>
+        <td>{{ blog.content }}</td>
+    </tr>
+    <tr>
+        <td>
+            {% if isGive %}
+                <a href="/cancelGive?id={{ blog.id }}">取消点赞</a>
+            {% else %}
+                <a href="/give?id={{ blog.id }}">👍</a>
+            {% endif %}
+            {{ giveCnt }}
+        </td>
+    </tr>
+</table>
+<p>评论</p>
+{% for item in comment %}
+    <a href="/home?id={{ item.uid }}">{{ item.username }}</a><br>
+    {{ item.content }}<br>
+{% endfor %}
+<br><br>
+</table>
+<form action="/blog" method="post">
+    {% csrf_token %}
+    <input type="text" name="id" value="{{ blog.id }}" style="border: none"><br>
+    写评论<input type="text" name="content" style="height: 100px;width: 200px"><br>
+    <input type="submit" value="发送">
+</form>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>{{ user.username }}</p>
+<p>{{ user.email }}</p>
+<p>{{ user.telephone }}</p>
+<p>{{ user.introduce }}</p>
+
+{% if user.id != request.session.user.id %}
+    <p>可能认识的人</p>
+    {% for user in selfFollowUser %}
+        <a href="/home?id={{ user.id }}">{{ user.username }}</a>
+    {% endfor %}
+
+    <p>他关注的人</p>
+{% else %}
+    <form action="/home" method="post">
+        {% csrf_token %}
+        编辑个人格言<input type="text" name="introduce" style="height: 20px;width: 100px"><br>
+        <input type="submit" value="更改">
+    </form>
+    <p>我关注的人</p>
+{% endif %}
+{% for user in followUser %}
+    <a href="/home?id={{ user.id }}">{{ user.username }}</a>
+{% endfor %}
+<p>我的微博</p>
+<table cellpadding="10">
+    {% for item in article %}
+        <tr>
+            <td>
+                <a href="/blog?id={{ item.id }}">{{ item.title }}</a>&nbsp;&nbsp;
+                {{ item.create_time }}<br>
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/blog?id={{ item.id }}">{{ item.content }}</a></td>
+        </tr>
+{% endfor %}
+</table>
+
+<p>我关注的人发的微博</p>
+<table cellpadding="10">
+    {% for item in followArticle %}
+        <tr>
+            <td><a href="/home?id={{ item.uid }}">{{ item.username }}</a>&nbsp;&nbsp;
+                <a href="/blog?id={{ item.id }}">{{ item.title }}</a>&nbsp;&nbsp;
+                {{ item.create_time }}
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/blog?id={{ item.id }}">{{ item.content }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<p>历史浏览记录</p>
+<table cellpadding="10">
+    {% for item in historyArticle %}
+        <tr>
+            <td><a href="/home?id={{ item.uid }}">{{ item.username }}</a>&nbsp;&nbsp;
+                <a href="/blog?id={{ item.id }}">{{ item.title }}</a>&nbsp;&nbsp;
+                {{ item.create_time }}
+            </td>
+        </tr>
+        <tr>
+            <td><a href="/blog?id={{ item.id }}">{{ item.content }}</a></td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
