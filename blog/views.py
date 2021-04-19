@@ -17,7 +17,6 @@ class RegisterView(View):
         password = request.POST['password']
         telephone = request.POST['telephone']
         email = request.POST['email']
-		print('aaa')
 
         if not all([username, password, telephone, email]):
             return render(request, 'register.html', {'errmsg': '数据不完整'})
